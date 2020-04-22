@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="mat-toolbar-style">
+      <img class="img-fluid" src="assets/images/Coat_of_arms_of_Lithuania.svg.png">
+    </mat-toolbar>
+    <mat-nav-list>
+      <a
+        *ngFor="let menuElement of menuElements"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active-list-item"
+          [disableRipple]="true"
+          mat-list-item
+          routerLink="{{menuElement.path}}">
+        <mat-icon class="nav-icon" aria-hidden="false" aria-label="Example home icon">{{menuElement.icon}}</mat-icon>
+            {{menuElement.name}}
+      </a>
+      <a mat-list-item (click)="logout()">Logout</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>auth-ang</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
